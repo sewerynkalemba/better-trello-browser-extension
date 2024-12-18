@@ -4,6 +4,7 @@ let browser: typeof chrome;
 
 export const queryKeys = {
   storageSync: ["storageSync"] as const,
+  localSync: ["localSync"] as const,
 };
 
 export const storageSyncKeys = [
@@ -19,6 +20,8 @@ export const storageSyncKeys = [
   "showAddToTrello",
   "showListsCardCount",
 ];
+
+export const localSyncKeys = ["butlerToken"];
 
 export type TrelloList = {
   listId: string;
@@ -39,6 +42,10 @@ export type StorageSync = {
   lists: TrelloList[];
   showAddToTrello: boolean;
   showListsCardCount: boolean;
+};
+
+export type LocalSync = {
+  butlerToken: string;
 };
 
 export function useStorageSyncQuery(options?: {
