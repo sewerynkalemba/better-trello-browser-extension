@@ -4,8 +4,8 @@
   "name": "Better Trello",
   "permissions": ["activeTab", "storage", "webRequest"],
   "host_permissions": [
-    "https://app.butlerfortrello.com/*",
-    "https://trello.com/*"
+    "https://trello.com/*",
+    "https://app.butlerfortrello.com/*"
   ],
   "description": "Better Trello is a browser extension that enhances the Trello experience.",
   "action": {
@@ -20,12 +20,6 @@
     {
       "matches": ["https://trello.com/*"],
       "js": ["./content/content.ts"],
-      "css": ["./content/content.css"]
-    },
-    {
-      "matches": ["https://app.butlerfortrello.com/*"],
-      "all_frames": true,
-      "js": ["./content/butler.ts"],
       "css": ["./content/content.css"]
     }
   ],

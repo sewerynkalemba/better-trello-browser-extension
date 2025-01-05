@@ -13,8 +13,7 @@ browserInstance.webRequest.onBeforeSendHeaders.addListener(
     )?.value;
 
     if (butlerToken) {
-      console.log("butlerToken", butlerToken);
-      chrome.storage.local.set({
+      browserInstance.storage.local.set({
         butlerToken,
       });
     }

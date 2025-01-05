@@ -4,7 +4,7 @@ let browser: typeof chrome;
 
 export const queryKeys = {
   storageSync: ["storageSync"] as const,
-  localSync: ["localSync"] as const,
+  storageLocal: ["storageLocal"] as const,
 };
 
 export const storageSyncKeys = [
@@ -21,7 +21,7 @@ export const storageSyncKeys = [
   "showListsCardCount",
 ];
 
-export const localSyncKeys = ["butlerToken"];
+export const storageLocalKeys = ["butlerToken"];
 
 export type TrelloList = {
   listId: string;
@@ -44,7 +44,7 @@ export type StorageSync = {
   showListsCardCount: boolean;
 };
 
-export type LocalSync = {
+export type StorageLocal = {
   butlerToken: string;
 };
 
@@ -61,6 +61,24 @@ export function useStorageSyncQuery(options?: {
 
       const result = await browser.storage.sync.get(storageSyncKeys);
       return result as StorageSync;
+    },
+    enabled: options?.enabled,
+  });
+}
+
+export function useStorageLocalQuery(options?: {
+  enabled?: boolean;
+  useCache?: boolean;
+}) {
+  return useQuery({
+    queryKey: queryKeys.storageLocal,
+    queryFn: async () => {
+      if (typeof browser === "undefined") {
+        browser = chrome;
+      }
+
+      const result = await browser.storage.local.get(storageLocalKeys);
+      return result as StorageLocal;
     },
     enabled: options?.enabled,
   });
