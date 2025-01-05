@@ -243,27 +243,52 @@ function Popup() {
                     <Input
                       placeholder="No token fetched"
                       disabled
-                      value={storageLocalQuery.data?.butlerToken}
+                      value={
+                        storageLocalQuery.isFetching
+                          ? "Fetching..."
+                          : storageLocalQuery.data?.butlerToken
+                      }
                     />
 
-                    {storageLocalQuery.data?.butlerToken ? (
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          if (storageLocalQuery.data?.butlerToken) {
-                            navigator.clipboard.writeText(
-                              storageLocalQuery.data?.butlerToken
-                            );
-                          }
-                        }}
-                      >
-                        <Copy className="w-3 h-3" />
-                        Copy to clipboard
-                      </Button>
+                    {!storageLocalQuery.data?.butlerToken ? (
+                      <div className="flex flex-col gap-2">
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            if (storageLocalQuery.data?.butlerToken) {
+                              navigator.clipboard.writeText(
+                                storageLocalQuery.data?.butlerToken
+                              );
+                            }
+                          }}
+                        >
+                          <Copy className="w-3 h-3" />
+                          Copy to clipboard
+                        </Button>
+
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => storageLocalQuery.refetch()}
+                        >
+                          Refresh
+                        </Button>
+                      </div>
                     ) : (
-                      <div>
-                        To fetch the token, go to your Trello board and open the
-                        Automation pop-up window.
+                      <div className="bg-orange-200 dark:bg-orange-800 flex flex-col gap-2 p-2 rounded-md">
+                        <p className="dark:text-white text-xs">
+                          <strong>To fetch the token</strong>, go to your Trello
+                          board and open the Automation pop-up window and click
+                          Refresh button after.
+                        </p>
+
+                        <Button
+                          size="sm"
+                          variant="tertiary"
+                          onClick={() => storageLocalQuery.refetch()}
+                        >
+                          Refresh
+                        </Button>
                       </div>
                     )}
                   </div>
